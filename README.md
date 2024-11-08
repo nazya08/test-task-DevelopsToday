@@ -71,7 +71,7 @@ Here's how to get the project up and running on your local machine for developme
 1. Clone this repository:
 
     ```
-    git clone git@github.com:nazya08/test_task_TheOriginals.git
+    git clone git@github.com:nazya08/test-task-DevelopsToday.git
     ```
 
 2. Create virtual env.
@@ -109,6 +109,12 @@ Here's how to get the project up and running on your local machine for developme
    ```
    python -m src.main.main
    ```
+
+---
+
+## Postman collection link (https://bit.ly/4fApVbO)
+
+---
 
 ## Licence
 
