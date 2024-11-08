@@ -27,7 +27,7 @@ class TargetSaver(ABC):
 
 class TargetReader(ABC):
     @abstractmethod
-    def get_target_by_id(self, target_id: int) -> Optional[Target]:
+    def get_target_by_id(self, mission_id: int, target_id: int) -> Optional[Target]:
         """Отримує ціль за її ID."""
         raise NotImplementedError
 

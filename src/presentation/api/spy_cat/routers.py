@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from starlette.status import HTTP_204_NO_CONTENT
 
-from src.adapters.schemas.mission import MissionResponse, MissionSpyCatShortResponse
+from src.adapters.schemas.mission import MissionSpyCatShortResponse
 from src.adapters.schemas.pagination import PaginationResponse
 from src.adapters.sqlalchemy.models import SpyCat
 from src.adapters.schemas.spy_cat import SpyCatCreate, SpyCatUpdate, SpyCatResponse, SpyCatExternalResponse, \
@@ -39,7 +39,7 @@ def create_spy_cat(
     )
 
 
-@router.put("/{spy_cat_id}", response_model=SpyCatResponse)
+@router.put("/{spy_cat_id}/", response_model=SpyCatResponse)
 def update_spy_cat(
         spy_cat_in: SpyCatUpdate,
         spy_cat: SpyCat = Depends(get_spy_cat),
@@ -59,7 +59,7 @@ def update_spy_cat(
     )
 
 
-@router.delete("/{spy_cat_id}", status_code=HTTP_204_NO_CONTENT)
+@router.delete("/{spy_cat_id}/", status_code=HTTP_204_NO_CONTENT)
 def delete_spy_cat(
         spy_cat: SpyCat = Depends(get_spy_cat),
         spy_cat_service: SpyCatService = Depends(get_spy_cat_service),
@@ -68,7 +68,7 @@ def delete_spy_cat(
     return spy_cat_service.delete_spy_cat(spy_cat_id=spy_cat.id)
 
 
-@router.get("/{spy_cat_id}", response_model=SpyCatExternalResponse)
+@router.get("/{spy_cat_id}/", response_model=SpyCatExternalResponse)
 def get_spy_cat(
         spy_cat: SpyCat = Depends(get_spy_cat),
         spy_cat_service: SpyCatService = Depends(get_spy_cat_service),

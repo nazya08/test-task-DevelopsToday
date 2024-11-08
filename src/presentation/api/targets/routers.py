@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from starlette.status import HTTP_200_OK
 
 from src.adapters.schemas.target import TargetResponse, TargetUpdate
@@ -10,7 +10,7 @@ from src.services.target import TargetService
 router = APIRouter()
 
 
-@router.put("/{mission_id}/targets/{target_id}", response_model=TargetResponse)
+@router.put("/{mission_id}/targets/{target_id}/", response_model=TargetResponse)
 def update_target(
     target_in: TargetUpdate,
     mission: Mission = Depends(get_mission),
@@ -18,7 +18,7 @@ def update_target(
     target_service: TargetService = Depends(get_target_service),
 ) -> TargetResponse:
 
-    updated_target = target_service.update_target(target_id=target.id, obj_in=target_in)
+    updated_target = target_service.update_target(mission_id=mission.id, target_id=target.id, obj_in=target_in)
 
     return TargetResponse(
         id=updated_target.id,
@@ -32,13 +32,13 @@ def update_target(
     )
 
 
-@router.post("/{mission_id}/targets/{target_id}/complete", status_code=HTTP_200_OK)
+@router.post("/{mission_id}/targets/{target_id}/complete/", status_code=HTTP_200_OK)
 def mark_target_completed(
     mission: Mission = Depends(get_mission),
     target: Target = Depends(get_target),
     target_service: TargetService = Depends(get_target_service),
 ) -> dict:
 
-    target_service.mark_target_completed(target_id=target.id)
+    target_service.mark_target_completed(mission_id=mission.id, target_id=target.id)
 
     return {"detail": "Target marked as completed."}

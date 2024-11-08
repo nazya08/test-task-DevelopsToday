@@ -11,8 +11,8 @@ class TargetService:
         self.target_repo = target_repo
         self.mission_repo = mission_repo
 
-    def update_target(self, target_id: int, obj_in: TargetUpdate) -> Target:
-        target = self.target_repo.get_target_by_id(target_id)
+    def update_target(self, mission_id: int, target_id: int, obj_in: TargetUpdate) -> Target:
+        target = self.target_repo.get_target_by_id(mission_id=mission_id, target_id=target_id)
         if not target:
             raise HTTPException(status_code=404, detail="Target not found.")
 
@@ -30,8 +30,8 @@ class TargetService:
         self.target_repo.save_target(target)
         return target
 
-    def mark_target_completed(self, target_id: int) -> None:
-        target = self.target_repo.get_target_by_id(target_id)
+    def mark_target_completed(self, mission_id: int, target_id: int) -> None:
+        target = self.target_repo.get_target_by_id(mission_id=mission_id, target_id=target_id)
         target.complete = True
 
         self.target_repo.save_target(target)

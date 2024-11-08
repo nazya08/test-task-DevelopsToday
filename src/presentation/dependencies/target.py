@@ -20,8 +20,8 @@ def get_target_service(
     return TargetService(target_repo=target_repo, mission_repo=mission_repo)
 
 
-def get_target(target_id: int, target_repo: TargetRepository = Depends(get_target_repo)) -> Target:
-    target = target_repo.get_target_by_id(target_id)
+def get_target(mission_id: int, target_id: int, target_repo: TargetRepository = Depends(get_target_repo)) -> Target:
+    target = target_repo.get_target_by_id(mission_id=mission_id, target_id=target_id)
     if not target:
         raise HTTPException(
             status_code=404, detail="Target not found"

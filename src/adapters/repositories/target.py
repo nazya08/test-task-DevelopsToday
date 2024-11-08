@@ -35,8 +35,12 @@ class TargetRepository(SQLAlchemyRepo, TargetSaver, TargetReader):
         target.complete = True
         self._session.commit()
 
-    def get_target_by_id(self, target_id: int) -> Optional[Target]:
-        return self._session.query(Target).filter(Target.id == target_id).first()
+    def get_target_by_id(self, mission_id: int, target_id: int) -> Optional[Target]:
+        return (
+            self._session.query(Target)
+            .filter(Target.mission_id == mission_id, Target.id == target_id)
+            .first()
+        )
 
     def get_all_targets_for_mission(self, mission_id: int) -> list[Target]:
         return self._session.query(Target).filter(Target.mission_id == mission_id).all()

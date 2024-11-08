@@ -56,7 +56,7 @@ def delete_mission(
     return mission_service.delete_mission(spy_cat_id=spy_cat_id, mission_id=mission_id)
 
 
-@router.get("/{mission_id}", response_model=MissionExternalResponse)
+@router.get("/{mission_id}/", response_model=MissionExternalResponse)
 def get_mission(
         mission_id: int,
         spy_cat_id: int | None = None,
